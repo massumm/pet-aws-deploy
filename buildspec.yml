@@ -2,10 +2,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.8
-    # commands:
-    #   - echo "Installing dependencies..."
-    #   - pip install -r requirements.txt -t lib
+      python: 3.9
   build:
     commands:
       - echo "Zipping deployment package..."
@@ -16,5 +13,5 @@ phases:
   post_build:
     commands:
       - echo "Updating lambda Function..."
-      - aws lambda update-function-code --function-name rx_test_2 --zip-file fileb://deployment_package.zip
+      - aws lambda update-function-code --function-name aws-deploy-test --zip-file fileb://deployment_package.zip
       - echo "DONE!!"
