@@ -1,21 +1,16 @@
 version: 0.2
+env:
+  variables:
+    TestVar: "123"
+  git-credential-helper: yes
 phases:
-  install:
-    runtime-versions:
-      python: 3.9
+  pre_build:
+    commands:
+      - echo "Pre build command"
   build:
     commands:
-      - echo "Zipping deployment package..."
-      - cd lib
-      - zip -r9 ../deployment_package.zip .
-      - cd ..
-      - zip -g deployment_package.zip lambda_function.py
-      - echo "Contents of current directory:"
-      - ls -la
-      - echo "Contents of deployment_package.zip:"
-      - unzip -l deployment_package.zip
+      - echo Build started on `date`
   post_build:
     commands:
-      - echo "Updating lambda Function..."
-      - aws lambda update-function-code --function-name aws-deploy-test --zip-file fileb://deployment_package.zip
-      - echo "DONE!!"
+      - echo Build post_build on `date`
+      - bash buildspec_update_lambda_code.sh
