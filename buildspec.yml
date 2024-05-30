@@ -10,6 +10,10 @@ phases:
       - zip -r9 ../deployment_package.zip .
       - cd ..
       - zip -g deployment_package.zip lambda_function.py
+      - echo "Contents of current directory:"
+      - ls -la
+      - echo "Contents of deployment_package.zip:"
+      - unzip -l deployment_package.zip
   post_build:
     commands:
       - echo "Updating lambda Function..."
